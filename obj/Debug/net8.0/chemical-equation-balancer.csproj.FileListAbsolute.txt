@@ -1,0 +1,14 @@
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.GeneratedMSBuildEditorConfig.editorconfig
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.AssemblyInfoInputs.cache
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.AssemblyInfo.cs
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.csproj.CoreCompileInputs.cache
+/home/mgrac/repos/chemical-equation-balancer/bin/Debug/net8.0/chemical-equation-balancer
+/home/mgrac/repos/chemical-equation-balancer/bin/Debug/net8.0/chemical-equation-balancer.deps.json
+/home/mgrac/repos/chemical-equation-balancer/bin/Debug/net8.0/chemical-equation-balancer.runtimeconfig.json
+/home/mgrac/repos/chemical-equation-balancer/bin/Debug/net8.0/chemical-equation-balancer.dll
+/home/mgrac/repos/chemical-equation-balancer/bin/Debug/net8.0/chemical-equation-balancer.pdb
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.dll
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/refint/chemical-equation-balancer.dll
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.pdb
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/chemical-equation-balancer.genruntimeconfig.cache
+/home/mgrac/repos/chemical-equation-balancer/obj/Debug/net8.0/ref/chemical-equation-balancer.dll

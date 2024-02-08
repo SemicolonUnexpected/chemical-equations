@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "chemical-equations/1.0.0": {
+        "runtime": {
+          "chemical-equations.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "chemical-equations/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
