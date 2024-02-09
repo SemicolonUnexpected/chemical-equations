@@ -10,11 +10,7 @@ internal enum TokenType {
 
     // Chemical equation components
     Element,
-    Subscript,
-    BalancingNumber,
-    AqueousStateSymbol,
-    SolidStateSymbol,
-    LiquidStateSymbol,
-    GasStateSymbol,
-    PrecipitateStateSymbol
+    Subscript, // Denoted by an underscore
+    Superscript, // Denoted by the caret symbol
+    Number
 }
