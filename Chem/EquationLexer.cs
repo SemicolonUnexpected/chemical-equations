@@ -23,21 +23,21 @@ internal class EquationLexer {
 
     private void ScanToken() {
         char current = Advance();
-        switch (current) {
-            case '(':
-                tokens.Add(new Token(LeftParenthesis, current.ToString(), null));
-                break;
-            case ')':
-                tokens.Add(new Token(RightParenthesis, current.ToString(), null));
-                break;
-            default:
-                throw new EquationSyntaxException("Unexpected character", _equation, _index);
-        }
+        if (current == '(') { AddToken(LeftParenthesis); return; }
+        if (current == ')') { AddToken(RightParenthesis); return; }
+        if (current == ')') { AddToken(RightParenthesis); return; }
     }
 
     #region Lexer movements
 
     private char Advance() => _equation[_index++];
+    private char Peek(int step = 1) {
+        if (_index + step >= _equation.Length) return '\0';
+        return _equation[_index + step];
+    }
 
     #endregion
+
+    private void AddToken(TokenType type) => tokens.Add(new Token(type, null));
+    private void AddToken(TokenType type, object? literal) => tokens.Add(new Token(type, null));
 }

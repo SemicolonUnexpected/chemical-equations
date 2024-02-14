@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("chemical-equations")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c205fdfd439d08633e25c20313178f892e217e55")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff51a59920b23bd07ce11ffe12c4ebd313e8e60f")]
 [assembly: System.Reflection.AssemblyProductAttribute("chemical-equations")]
 [assembly: System.Reflection.AssemblyTitleAttribute("chemical-equations")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
