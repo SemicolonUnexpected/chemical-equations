@@ -2,8 +2,9 @@ namespace Chem;
 
 internal enum TokenType {
     // Separators 
-    ArrowRightToLeft, // '->', '=>' or ''
-    ArrowBoth, // '<->', '<=>' or ''
+    ArrowLeftToRight, // '->'
+    ArrowRightToLeft, // '<-'
+    ArrowBoth, // '<->'
     Plus, // '+'
     LeftParenthesis, // '('
     RightParenthesis, // ')'
