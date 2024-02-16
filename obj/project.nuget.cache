@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sni6Ur8BQ0I8L9q5E0bQ7c2Nvxnf6H4qKZy6wfxQC+YQQRzsZcSZd8Exp8OmUHtTYaXokxF/P75Sw43knk6fbQ==",
+  "dgSpecHash": "AGdpo6UKvN2mcLJedkF5IDIpxXgEa9Jnt/NXhuDutccpBwlnTQPW2Gs6+28zhIz3zZghngqBgnVCti49UwHEtw==",
   "success": true,
-  "projectFilePath": "/home/mgrac/repos/chemical-equation-balancer/chemical-equations.csproj",
+  "projectFilePath": "/home/mgrac/repos/chemical-equations/chemical-equations.csproj",
   "expectedPackageFiles": [
     "/home/mgrac/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.1/microsoft.aspnetcore.app.ref.8.0.1.nupkg.sha512"
   ],

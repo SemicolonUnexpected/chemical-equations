@@ -6,7 +6,10 @@ public class Equation : IComparable<Equation> {
 
     public bool IsBalanced => throw new NotImplementedException();
 
-    public Equation(string equation) {}
+    public Equation(string equation) {
+        var lex = new EquationLexer(equation);
+        foreach (var t in lex.Lex()) Console.WriteLine(t.ToString());
+    }
 
     public void Balance() {}
 

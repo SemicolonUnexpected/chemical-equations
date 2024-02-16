@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/mgrac/repos/chemical-equation-balancer/chemical-equations.csproj",
+      "projectUniqueName": "/home/mgrac/repos/chemical-equations/chemical-equations.csproj",
       "projectName": "chemical-equations",
-      "projectPath": "/home/mgrac/repos/chemical-equation-balancer/chemical-equations.csproj",
+      "projectPath": "/home/mgrac/repos/chemical-equations/chemical-equations.csproj",
       "packagesPath": "/home/mgrac/.nuget/packages/",
-      "outputPath": "/home/mgrac/repos/chemical-equation-balancer/obj/",
+      "outputPath": "/home/mgrac/repos/chemical-equations/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/mgrac/.nuget/NuGet/NuGet.Config"

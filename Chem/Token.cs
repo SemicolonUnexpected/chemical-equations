@@ -8,4 +8,6 @@ internal class Token {
         Type = type;
         Literal = literal;
     }
+
+    public override string ToString() => $"Type : {Enum.GetName(Type)}, Literal : {Literal}";
 }

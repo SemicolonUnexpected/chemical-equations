@@ -23,6 +23,7 @@ internal class EquationLexer {
 
     private void ScanToken() {
         char current = Advance();
+
         switch (current) {
             // Ignore whitespace
             case ' ' :
@@ -32,12 +33,11 @@ internal class EquationLexer {
                 break;
 
             // Handle parenthesis
-            case '(' :
-                AddToken(LeftParenthesis);
-                break;
-            case ')' :
-                AddToken(RightParenthesis);
-                break;
+            case '(' : AddToken(LeftParenthesis); break;
+            case ')' : AddToken(RightParenthesis); break;
+
+            // Handle plus symbol
+            case '+' : AddToken(Plus); break;
 
             // Handle non-unicode arrows
             case '-':
@@ -47,38 +47,79 @@ internal class EquationLexer {
 
             case '<' :
                 if (!Match('-')) Error("Missing arrow body");
-                if (Match('>')) AddToken(ArrowBoth);
+                if (Match('>')) AddToken(ArrowReversible);
                 else AddToken(ArrowRightToLeft);
                 break;
+
+            // Handle unicode arrows
+            case '→' : AddToken(ArrowLeftToRight); break;
+            case '←' : AddToken(ArrowRightToLeft); break;
+            case '⇌' : AddToken(ArrowReversible); break;
 
             // Handle superscript non-unicode
             case '^' :
                 if (!Match('{')) Error("Missing brace");
-                int start = _index;
-                current = Advance();
+                int superscriptStart = _index;
+                while (Peek() != '}' && !AtEnd()) {
+                    current = Advance();
 
-            
+                    // Check if character is valid
+                    if (!CharacterSets.IsSubSuperScriptable(current)) Error($"The character {current} can not be part of a superscript");
+                }
+
+                if (AtEnd()) Error("Superscript brace not closed");
+
+                // Skip over the closing '}'
+                Next(2);
+
+                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 1));
                 break;
 
             // Handle subscript non-unicode
             case '_' :
                 if (!Match('{')) Error("Missing brace");
+                int subscriptStart = _index;
+                while (Peek() != '}' && !AtEnd()) {
+                    current = Advance();
+
+                    // Check if character is valid
+                    if (!CharacterSets.IsSubSuperScriptable(current)) Error($"The character {current} can not be part of a subscript");
+                }
+
+                if (AtEnd()) Error("Subscript brace not closed");
+
+                // Skip over the closing '}'
+                Next(2);
+
+                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 1));
                 break;
 
             default :
                 // Handle balancing numbers
                 if (char.IsAsciiDigit(current)) {
-                    int start = _index;
-                    while (char.IsAsciiDigit(current) && !AtEnd()) {
+                    int start = _index - 1;
+                    while (Peek() is not null && char.IsAsciiDigit((char)Peek()!)) {
                         current = Advance();                           
                     }
+                    Advance();
                     AddToken(Number, int.Parse(_equation.Substring(start, _index - start)));
+                    break;
+                }
+
+                // Handle text
+                if (char.IsAsciiLetter(current)) {
+                    int start = _index - 1;
+                    while (Peek() is not null && char.IsAsciiLetter((char)Peek()!)) {
+                        current = Advance();                           
+                    }
+                    Advance();
+                    AddToken(Text, _equation.Substring(start, _index - start));
                     break;
                 }
 
                 // If we get here that means the string contains
                 // a value that the equation lexer cannot handle 
-                Error("Invalid token in equation");
+                Error($"Invalid token in equation : {current}");
                 break;
         }
     }
@@ -89,6 +130,8 @@ internal class EquationLexer {
     private bool AtEnd() => _index >= _equation.Length;
 
     private char Advance() => _equation[_index++];
+
+    private void Next(int step = 1) => _index += step;
 
     private char? Peek(int step = 1) {
         if (_index + step >= _equation.Length) return null;

@@ -14,7 +14,7 @@ internal class EquationComponent {
     public override string ToString() {
         StringBuilder stringBuilder = new();
         foreach (Token token in _tokens) {
-            stringBuilder.Append(token.Type switch {
+        stringBuilder.Append(token.Type switch {
                     Number => token.Literal!.ToString(),
                     _ => throw new NotImplementedException(),
                     });

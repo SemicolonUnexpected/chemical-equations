@@ -4,13 +4,13 @@ internal enum TokenType {
     // Separators 
     ArrowLeftToRight, // '->'
     ArrowRightToLeft, // '<-'
-    ArrowBoth, // '<->'
+    ArrowReversible, // '<->'
     Plus, // '+'
     LeftParenthesis, // '('
     RightParenthesis, // ')'
 
     // Chemical equation components
-    Element,
+    Text,
     Subscript, // Denoted by an underscore
     Superscript, // Denoted by the caret symbol
     Number
