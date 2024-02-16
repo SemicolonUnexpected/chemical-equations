@@ -28,6 +28,7 @@ internal class EquationLexer {
             case ' ' :
             case '\r' :
             case '\t' : 
+            case '\n' :
                 break;
 
             // Handle parenthesis
@@ -46,12 +47,17 @@ internal class EquationLexer {
 
             case '<' :
                 if (!Match('-')) Error("Missing arrow body");
-                if (Peek() == '>') AddToken(ArrowBoth)
-                // COME HERE THERE IS STILL WORK TO DO
+                if (Match('>')) AddToken(ArrowBoth);
+                else AddToken(ArrowRightToLeft);
+                break;
 
             // Handle superscript non-unicode
             case '^' :
                 if (!Match('{')) Error("Missing brace");
+                int start = _index;
+                current = Advance();
+
+            
                 break;
 
             // Handle subscript non-unicode
@@ -101,12 +107,6 @@ internal class EquationLexer {
 
     // Throw an error with a specified message
     private void Error(string message) => throw new EquationSyntaxException(message, _equation, _index);
-
-    #endregion
-
-    #region Character groups
-
-
 
     #endregion
 }
