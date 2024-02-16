@@ -1,3 +1,4 @@
+using System.Text;
 using static Chem.TokenType;
 
 namespace Chem;
@@ -70,9 +71,9 @@ internal class EquationLexer {
                 if (AtEnd()) Error("Superscript brace not closed");
 
                 // Skip over the closing '}'
-                Next(2);
+                Next();
 
-                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 1));
+                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 2));
                 break;
 
             // Handle subscript non-unicode
@@ -89,19 +90,16 @@ internal class EquationLexer {
                 if (AtEnd()) Error("Subscript brace not closed");
 
                 // Skip over the closing '}'
-                Next(2);
+                Next();
 
-                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 1));
+                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 2));
                 break;
 
             default :
                 // Handle balancing numbers
                 if (char.IsAsciiDigit(current)) {
                     int start = _index - 1;
-                    while (Peek() is not null && char.IsAsciiDigit((char)Peek()!)) {
-                        current = Advance();                           
-                    }
-                    Advance();
+                    while (Peek() is not null && char.IsAsciiDigit((char)Peek()!)) Next();
                     AddToken(Number, int.Parse(_equation.Substring(start, _index - start)));
                     break;
                 }
@@ -109,11 +107,34 @@ internal class EquationLexer {
                 // Handle text
                 if (char.IsAsciiLetter(current)) {
                     int start = _index - 1;
-                    while (Peek() is not null && char.IsAsciiLetter((char)Peek()!)) {
-                        current = Advance();                           
-                    }
-                    Advance();
+                    while (Peek() is not null && char.IsAsciiLetter((char)Peek()!)) Next();
                     AddToken(Text, _equation.Substring(start, _index - start));
+                    break;
+                }
+
+                // Handle unicode subscript
+                if (CharacterSets.IsSubScript(current)) {
+                    int start = _index - 1;
+                    while (Peek() is not null && CharacterSets.IsSubScript((char)Peek()!)) Next();
+
+                    string subscript = _equation.Substring(start, _index - start);
+                    StringBuilder literal = new();
+                    foreach (char part in subscript) literal.Append(CharacterSets.FromSubScript(part));
+
+                    AddToken(Subscript, literal.ToString());
+                    break;
+                }
+
+                // Handle unicode superscript
+                if (CharacterSets.IsSuperScript(current)) {
+                    int start = _index - 1;
+                    while (Peek() is not null && CharacterSets.IsSuperScript((char)Peek()!)) Next();
+
+                    string superscript = _equation.Substring(start, _index - start);
+                    StringBuilder literal = new();
+                    foreach (char part in superscript) literal.Append(CharacterSets.FromSuperScript(part));
+
+                    AddToken(Superscript, literal.ToString());
                     break;
                 }
 
@@ -133,14 +154,18 @@ internal class EquationLexer {
 
     private void Next(int step = 1) => _index += step;
 
-    private char? Peek(int step = 1) {
+    private char? Peek(int step = 0) {
         if (_index + step >= _equation.Length) return null;
         return _equation[_index + step];
     }
 
     private bool Match(char expected) {
         if (AtEnd()) return false;
-        return Advance() == expected;
+        if (_equation[_index] == expected) {
+            Next();
+            return true;
+        }
+        else return false;
     }
 
     // Helpers to add tokens quickly
