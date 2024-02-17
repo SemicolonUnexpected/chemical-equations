@@ -40,6 +40,6 @@ public class Equation : IEquatable<Equation> {
     }
 
     public bool Equals(Equation? other) {
-        throw new NotImplementedException();
+        return _tokens == other?._tokens;
     }
 }
