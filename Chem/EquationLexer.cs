@@ -65,7 +65,7 @@ internal class EquationLexer {
                     current = Advance();
 
                     // Check if character is valid
-                    if (!CharacterSets.IsSubSuperScriptable(current)) Error($"The character {current} can not be part of a superscript");
+                    if (!CharacterSets.IsSubSuperscriptable(current)) Error($"The character {current} can not be part of a superscript");
                 }
 
                 if (AtEnd()) Error("Superscript brace not closed");
@@ -73,7 +73,7 @@ internal class EquationLexer {
                 // Skip over the closing '}'
                 Next();
 
-                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 2));
+                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 1));
                 break;
 
             // Handle subscript non-unicode
@@ -84,7 +84,7 @@ internal class EquationLexer {
                     current = Advance();
 
                     // Check if character is valid
-                    if (!CharacterSets.IsSubSuperScriptable(current)) Error($"The character {current} can not be part of a subscript");
+                    if (!CharacterSets.IsSubSuperscriptable(current)) Error($"The character {current} can not be part of a subscript");
                 }
 
                 if (AtEnd()) Error("Subscript brace not closed");
@@ -92,7 +92,7 @@ internal class EquationLexer {
                 // Skip over the closing '}'
                 Next();
 
-                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 2));
+                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 1));
                 break;
 
             default :
@@ -113,26 +113,26 @@ internal class EquationLexer {
                 }
 
                 // Handle unicode subscript
-                if (CharacterSets.IsSubScript(current)) {
+                if (CharacterSets.IsSubscript(current)) {
                     int start = _index - 1;
-                    while (Peek() is not null && CharacterSets.IsSubScript((char)Peek()!)) Next();
+                    while (Peek() is not null && CharacterSets.IsSubscript((char)Peek()!)) Next();
 
                     string subscript = _equation.Substring(start, _index - start);
                     StringBuilder literal = new();
-                    foreach (char part in subscript) literal.Append(CharacterSets.FromSubScript(part));
+                    foreach (char part in subscript) literal.Append(CharacterSets.FromSubscript(part));
 
                     AddToken(Subscript, literal.ToString());
                     break;
                 }
 
                 // Handle unicode superscript
-                if (CharacterSets.IsSuperScript(current)) {
+                if (CharacterSets.IsSuperscript(current)) {
                     int start = _index - 1;
-                    while (Peek() is not null && CharacterSets.IsSuperScript((char)Peek()!)) Next();
+                    while (Peek() is not null && CharacterSets.IsSuperscript((char)Peek()!)) Next();
 
                     string superscript = _equation.Substring(start, _index - start);
                     StringBuilder literal = new();
-                    foreach (char part in superscript) literal.Append(CharacterSets.FromSuperScript(part));
+                    foreach (char part in superscript) literal.Append(CharacterSets.FromSuperscript(part));
 
                     AddToken(Superscript, literal.ToString());
                     break;

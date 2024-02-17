@@ -1,6 +1,5 @@
 ﻿using Chem;
 
-
 static void RunPrompt() {
     while (true) {
         Console.Write(">>> ");
@@ -10,7 +9,13 @@ static void RunPrompt() {
             break;
         }
 
-        Equation test = new(line);
+        try {
+            Equation test = new(line);
+            Console.WriteLine(test.ToString());
+        }
+        catch(Exception e) {
+            Console.WriteLine($"There was an error : {e}");
+        }
     }
 }
 
