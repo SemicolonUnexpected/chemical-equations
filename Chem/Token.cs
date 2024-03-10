@@ -1,6 +1,6 @@
 namespace Chem;
 
-internal class Token {
+internal struct Token {
     public  TokenType Type { get; init; }
     public object? Literal { get; init; }
 

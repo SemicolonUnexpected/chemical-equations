@@ -70,10 +70,11 @@ internal class EquationLexer {
 
                 if (AtEnd()) Error("Superscript brace not closed");
 
+                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart));
+
                 // Skip over the closing '}'
                 Next();
 
-                AddToken(Superscript, _equation.Substring(superscriptStart, _index - superscriptStart - 1));
                 break;
 
             // Handle subscript non-unicode
@@ -89,11 +90,24 @@ internal class EquationLexer {
 
                 if (AtEnd()) Error("Subscript brace not closed");
 
+                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart));
+
                 // Skip over the closing '}'
                 Next();
 
-                AddToken(Subscript, _equation.Substring(subscriptStart, _index - subscriptStart - 1));
                 break;
+
+            case '{' :
+                int symbolStart = _index + 1;
+
+                while (Peek() != '}' && !AtEnd()) Next();
+
+                if (AtEnd()) Error("Subscript brace not closed");
+
+                // Get the substring contained within the braces
+
+
+
 
             default :
                 // Handle balancing numbers
